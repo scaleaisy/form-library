@@ -11,7 +11,7 @@
  * uniquement, aucune information interne ni de sécurité.
  */
 
-import type { DesignPreset } from './design.ts'
+import { defineDesignPreset, type DesignPreset } from './design.ts'
 
 export type FeatureAvailability = 'spec' | 'builder'
 
@@ -94,30 +94,30 @@ export const FEATURE_CATALOG: FeatureGroup[] = [
 
 /** Bibliothèque design : thèmes de couleurs du builder. */
 export const DESIGN_LIBRARY: DesignPreset[] = [
-  {
+  defineDesignPreset({
     id: 'clarte',
     title: 'Clarté',
     description: 'Fond blanc, texte anthracite, accent bleu. Sobre et lisible partout.',
     settings: { primaryColor: '#2563EB', backgroundColor: '#FFFFFF', textColor: '#1F2937', fieldTextColor: '#111827', buttonTextColor: '#FFFFFF', darkMode: false },
-  },
-  {
+  }),
+  defineDesignPreset({
     id: 'nuit',
     title: 'Nuit',
     description: 'Fond nuit profond et accent violet lumineux, pour les tunnels premium.',
     settings: { primaryColor: '#7C3AED', backgroundColor: '#0F172A', textColor: '#F8FAFC', fieldTextColor: '#F8FAFC', buttonTextColor: '#FFFFFF', darkMode: true },
-  },
-  {
+  }),
+  defineDesignPreset({
     id: 'aurore',
     title: 'Aurore',
     description: 'Accent rose-orangé chaleureux sur fond crème, pour le coaching et le bien-être.',
     settings: { primaryColor: '#C2410C', backgroundColor: '#FFF8F1', textColor: '#3B2418', fieldTextColor: '#2B1A10', buttonTextColor: '#FFFFFF', darkMode: false },
-  },
-  {
+  }),
+  defineDesignPreset({
     id: 'foret',
     title: 'Forêt',
     description: 'Vert profond et tons naturels, pour inspirer confiance et sérénité.',
     settings: { primaryColor: '#15803D', backgroundColor: '#F6FBF7', textColor: '#14281D', fieldTextColor: '#0F1F16', buttonTextColor: '#FFFFFF', darkMode: false },
-  },
+  }),
 ]
 
 export function findDesignPreset(id: string | undefined) {

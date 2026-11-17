@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Contributions externes refusées
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
+        run: |
+          echo "Ce dépôt est maintenu par ScaleAIsy et n’accepte pas de contribution externe. Ouvrez une issue."
+          exit 1
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -20,8 +25,3 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm run verifier
-      - name: Contributions externes refusées
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-        run: node scripts/perimetre-contribution.ts "$BASE_SHA"
