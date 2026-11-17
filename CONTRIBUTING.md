@@ -12,7 +12,8 @@ est maintenue par ScaleAIsy : pour une idée de fonctionnalité, ouvrez une *iss
 3. Ouvrez une *pull request* avec une capture d’un formulaire utilisant le thème.
 
 Un thème est une palette. Il ne contient ni feuille de style, ni script, ni
-lien externe.
+lien externe. Une contribution ne peut modifier que le dossier `designs/`, et
+ne peut pas supprimer un thème existant.
 
 ## Relecture
 

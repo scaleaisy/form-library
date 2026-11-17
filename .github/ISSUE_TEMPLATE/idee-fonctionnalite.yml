@@ -1,0 +1,16 @@
+name: Idée de fonctionnalité
+description: Proposer une nouvelle possibilité pour les formulaires ScaleAIsy.
+labels: ["idée"]
+body:
+  - type: textarea
+    id: besoin
+    attributes:
+      label: Votre besoin
+      description: Que voulez-vous que vos formulaires sachent faire, et pourquoi ?
+    validations:
+      required: true
+  - type: textarea
+    id: exemple
+    attributes:
+      label: Exemple concret
+      description: Un cas réel où cette possibilité vous aiderait.

@@ -1,0 +1,22 @@
+name: Problème avec le format ou le validateur
+description: Un formulaire valide refusé, une erreur incompréhensible, une documentation inexacte.
+labels: ["format"]
+body:
+  - type: textarea
+    id: probleme
+    attributes:
+      label: Ce qui se passe
+    validations:
+      required: true
+  - type: textarea
+    id: attendu
+    attributes:
+      label: Ce que vous attendiez
+    validations:
+      required: true
+  - type: textarea
+    id: fichier
+    attributes:
+      label: Extrait du fichier concerné
+      description: Retirez toute donnée personnelle avant de coller.
+      render: json
