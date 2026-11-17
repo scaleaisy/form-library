@@ -1,0 +1,13 @@
+{
+  "id": "foret",
+  "title": "Forêt",
+  "description": "Vert profond et tons naturels, pour inspirer confiance et sérénité.",
+  "settings": {
+    "primaryColor": "#15803D",
+    "backgroundColor": "#F6FBF7",
+    "textColor": "#14281D",
+    "fieldTextColor": "#0F1F16",
+    "buttonTextColor": "#FFFFFF",
+    "darkMode": false
+  }
+}

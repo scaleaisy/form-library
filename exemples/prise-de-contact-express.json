@@ -1,0 +1,60 @@
+{
+  "specVersion": 1,
+  "name": "Prise de contact express",
+  "language": "fr",
+  "goal": "optin",
+  "display": { "mode": "classic", "size": "medium" },
+  "design": { "preset": "clarte" },
+  "contact": {
+    "position": "beforeQuestions",
+    "phoneRequired": false,
+    "consent": { "required": false }
+  },
+  "qualification": {
+    "offer": "Rénovation de salle de bain clés en main.",
+    "targetAudience": "Propriétaires d’une maison ou d’un appartement dans la région.",
+    "hardDisqualifiers": "Locataire sans accord du propriétaire, ou projet hors de la région."
+  },
+  "questions": [
+    {
+      "key": "statut",
+      "type": "choice",
+      "text": "Vous êtes…",
+      "options": [
+        { "key": "proprietaire", "label": "Propriétaire", "impact": "positive" },
+        { "key": "locataire", "label": "Locataire", "impact": "disqualifying" }
+      ]
+    },
+    {
+      "key": "delai",
+      "type": "choice",
+      "text": "Quand souhaitez-vous démarrer ?",
+      "options": [
+        { "key": "trois-mois", "label": "Dans les 3 mois", "impact": "veryPositive" },
+        { "key": "six-mois", "label": "D’ici 6 mois", "impact": "positive" },
+        { "key": "plus-tard", "label": "Plus tard, je me renseigne", "impact": "negative" }
+      ]
+    },
+    {
+      "key": "projet",
+      "type": "text",
+      "text": "Décrivez votre projet en quelques mots.",
+      "required": false,
+      "ai": {
+        "idealAnswer": "Projet précis : surface, travaux souhaités, budget évoqué.",
+        "lowInterestAnswer": "Simple curiosité, aucun élément concret."
+      }
+    }
+  ],
+  "endings": {
+    "qualified": {
+      "title": "Merci, nous vous rappelons sous 48 heures",
+      "subtitle": "Un conseiller étudie votre projet et revient vers vous rapidement."
+    },
+    "disqualified": {
+      "title": "Merci pour votre demande",
+      "subtitle": "Nous intervenons uniquement pour les propriétaires. Notre guide vous aide à préparer votre projet.",
+      "button": { "label": "Télécharger le guide", "url": "https://exemple.fr/guide-renovation" }
+    }
+  }
+}

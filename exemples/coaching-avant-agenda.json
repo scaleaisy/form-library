@@ -1,0 +1,73 @@
+{
+  "specVersion": 1,
+  "name": "Coaching business — avant agenda",
+  "language": "fr",
+  "goal": "beforeCalendar",
+  "display": { "mode": "classic", "size": "medium" },
+  "design": { "preset": "aurore" },
+  "intro": {
+    "title": "Voyons si l’accompagnement est fait pour vous",
+    "subtitle": "3 minutes, quelques questions, dont une à l’oral."
+  },
+  "contact": {
+    "position": "afterQuestions",
+    "phoneRequired": true,
+    "consent": { "required": true, "text": "J’accepte d’être recontacté(e) au sujet de ma demande." }
+  },
+  "qualification": {
+    "offer": "Accompagnement de 3 mois pour structurer l’acquisition d’un coach indépendant.",
+    "targetAudience": "Coachs déjà lancés, avec au moins quelques clients payants.",
+    "priceOrCommitment": "2 400 € sur 3 mois, 2 heures par semaine.",
+    "hardDisqualifiers": "Aucune activité lancée, ou aucun budget disponible."
+  },
+  "questions": [
+    {
+      "key": "situation",
+      "type": "choice",
+      "text": "Où en est votre activité aujourd’hui ?",
+      "options": [
+        { "key": "pas-lance", "label": "Je n’ai pas encore lancé", "impact": "disqualifying" },
+        { "key": "debut", "label": "Moins de 5 clients", "impact": "neutral" },
+        { "key": "etabli", "label": "5 clients ou plus", "impact": "veryPositive" }
+      ],
+      "routes": { "pas-lance": "end" },
+      "defaultNext": "chiffre"
+    },
+    {
+      "key": "chiffre",
+      "type": "scale",
+      "text": "Combien de nouveaux clients signez-vous par mois ?",
+      "help": "Une estimation suffit.",
+      "maximum": 20,
+      "ranges": [
+        { "key": "faible", "label": "0 à 1", "from": 0, "to": 1, "impact": "negative" },
+        { "key": "moyen", "label": "2 à 5", "from": 2, "to": 5, "impact": "positive" },
+        { "key": "fort", "label": "6 à 20", "from": 6, "to": 20, "impact": "veryPositive" }
+      ]
+    },
+    {
+      "key": "objectif",
+      "type": "voice",
+      "text": "Racontez-nous l’objectif que vous voulez atteindre dans 3 mois.",
+      "maxDurationSeconds": 90,
+      "ai": {
+        "idealAnswer": "Objectif chiffré, échéance claire, prêt à s’investir chaque semaine.",
+        "lowInterestAnswer": "Objectif vague, sans échéance.",
+        "disqualifyingAnswer": "Cherche une solution gratuite ou refuse tout investissement.",
+        "eliminatory": true
+      }
+    }
+  ],
+  "endings": {
+    "qualified": {
+      "title": "Bonne nouvelle, votre profil correspond",
+      "subtitle": "Choisissez un créneau pour en parler.",
+      "calendarUrl": "https://calendly.com/exemple/decouverte"
+    },
+    "disqualified": {
+      "title": "Merci pour vos réponses",
+      "subtitle": "L’accompagnement ne semble pas adapté pour le moment. Voici une ressource gratuite pour avancer.",
+      "button": { "label": "Lire le guide", "url": "https://exemple.fr/guide" }
+    }
+  }
+}

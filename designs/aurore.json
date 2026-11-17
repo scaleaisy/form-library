@@ -1,0 +1,13 @@
+{
+  "id": "aurore",
+  "title": "Aurore",
+  "description": "Accent rose-orangé chaleureux sur fond crème, pour le coaching et le bien-être.",
+  "settings": {
+    "primaryColor": "#C2410C",
+    "backgroundColor": "#FFF8F1",
+    "textColor": "#3B2418",
+    "fieldTextColor": "#2B1A10",
+    "buttonTextColor": "#FFFFFF",
+    "darkMode": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "nuit",
+  "title": "Nuit",
+  "description": "Fond nuit profond et accent violet lumineux, pour les tunnels premium.",
+  "settings": {
+    "primaryColor": "#7C3AED",
+    "backgroundColor": "#0F172A",
+    "textColor": "#F8FAFC",
+    "fieldTextColor": "#F8FAFC",
+    "buttonTextColor": "#FFFFFF",
+    "darkMode": true
+  }
+}
