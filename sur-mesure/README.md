@@ -20,6 +20,36 @@ Votre formulaire reste chez vous. Il se branche à un tunnel ScaleAIsy grâce au
 Dans les deux cas, ScaleAIsy reçoit, vérifie et analyse les réponses de la même
 façon.
 
+## Le parcours de A à Z
+
+Six étapes, toujours dans cet ordre. Agent IA : situez l’utilisateur dans ce
+parcours à chaque échange (« Nous en sommes à l’étape 3 sur 6 : … Prochaine
+étape : … »). Avec le connecteur ScaleAIsy, l’outil `etat_sur_mesure` donne
+l’étape actuelle (`etape_actuelle`), la prochaine action (`prochaine_action`) et
+le parcours complet : appelez-le au début et après chaque étape.
+
+| # | Étape | Qui | Comment | Terminée quand |
+| --- | --- | --- | --- | --- |
+| 1 | Créer le tunnel | Agent + utilisateur | Cadrer l’offre et la qualification, puis `creer_tunnel` (ou le builder) | Le tunnel existe en brouillon |
+| 2 | Activer le sur mesure | Utilisateur (l’agent prépare) | `activer_sur_mesure` avec les sites autorisés ; montrer les conditions mot pour mot et attendre l’accord explicite | Les clés de test et réelle sont disponibles |
+| 3 | Coder et tester | Agent | Coder le formulaire avec le kit et la **clé de test**, l’essayer depuis `http://localhost` ou un site autorisé (banc de test), jusqu’à un envoi réussi | L’envoi d’essai apparaît dans `derniers_tests` |
+| 4 | Publier le tunnel | Utilisateur | Dans ScaleAIsy, **Diffusion › Publier** | Le tunnel est publié |
+| 5 | Mettre en ligne | Agent + utilisateur | Remplacer la clé de test par la **clé réelle**, déployer la page sur un site autorisé, faire un vrai envoi | La première vraie réponse arrive |
+| 6 | Suivre | Utilisateur | Contacts, analyses et statistiques dans ScaleAIsy (`lister_contacts`, `kpi_tunnel`) | — |
+
+Points de passage à rappeler à l’utilisateur :
+
+- **Clé de test d’abord, clé réelle ensuite.** La clé de test vise le brouillon et
+  n’alimente pas les statistiques. La clé réelle ne fonctionne qu’une fois le
+  tunnel publié.
+- **Un site non autorisé est refusé.** Ajoutez chaque adresse (avec ou sans
+  `www`) qui affichera le formulaire. Modifiable à tout moment avec
+  `modifier_sur_mesure`.
+- **Une modification du tunnel** (questions, textes) se publie dans ScaleAIsy ;
+  le formulaire sur mesure lit la définition à chaque ouverture, mais vérifiez
+  que votre affichage gère toujours chaque question.
+- **Si une clé a fuité ou est détournée**, régénérez-la, puis mettez à jour la page.
+
 ## 1. Préparer le tunnel
 
 1. Créez le tunnel dans ScaleAIsy : questions, qualification, fins, notifications

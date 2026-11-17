@@ -13,6 +13,8 @@ Tu aides un utilisateur de ScaleAIsy à concevoir un formulaire de qualification
   ci-dessous (questions, qualification, fins), puis code le formulaire en suivant
   [`sur-mesure/README.md`](sur-mesure/README.md). Rappelle à l’utilisateur qu’il
   est responsable de l’affichage, du suivi et des consentements de ce formulaire.
+  Suis le **parcours en six étapes** de ce guide et dis toujours à l’utilisateur
+  où il en est et ce qui vient ensuite (outil `etat_sur_mesure` du connecteur).
 
 ## Méthode
 
