@@ -59,6 +59,28 @@ Points de passage à rappeler à l’utilisateur :
    les conditions et activez.
 4. Copiez la **clé de test** (`sm_test_…`) et la **clé réelle** (`sm_live_…`).
 
+### Concevoir un tunnel pensé pour le sur mesure
+
+Le tunnel ScaleAIsy porte le **fond** (questions, qualification, analyse) ; votre
+formulaire porte la **forme** (affichage, enchaînement, écrans de fin). D’où
+quelques règles :
+
+- **Pas de logique conditionnelle dans le tunnel** (`routes`). Votre formulaire
+  ne la reçoit pas : gérez l’enchaînement dans votre code. Une question que votre
+  parcours peut sauter doit être **facultative** (`required: false`) dans le
+  tunnel, sinon l’envoi est refusé.
+- **Soignez la qualification** comme pour un tunnel du builder : `qualification`,
+  `impact` de chaque réponse, consignes `ai` des questions vocales et écrites.
+  C’est elle qui produit l’analyse et le classement du prospect.
+- **Les fins** (`endings`) restent utiles comme référence de texte, mais c’est
+  votre formulaire qui affiche l’écran de fin, le bouton ou l’agenda (voir
+  « Écrans de fin et agenda »).
+- **Les fonctions vidéo du builder** (vidéo sur une question, étapes vidéo, VSL
+  adaptative) ne s’appliquent pas : intégrez vos vidéos directement dans votre page.
+- **Gardez des identifiants stables** : chaque question a un `id` donné par
+  `definition`. Ne les écrivez pas en dur dans votre code ; lisez-les à chaque
+  ouverture pour suivre les modifications du tunnel.
+
 Les clés ne sont pas secrètes : elles sont visibles dans le code de votre page.
 Chacune ne fonctionne que pour ce tunnel et depuis vos sites autorisés. Vous
 pouvez les régénérer à tout moment.
@@ -136,11 +158,48 @@ envoyez les étapes du parcours :
 Le premier événement après `view` compte le démarrage du formulaire. Avec la clé
 de test, `track` ne fait rien.
 
+Ce que vous obtenez dans ScaleAIsy avec ces événements : visites, démarrages,
+abandons question par question, coordonnées laissées, formulaires terminés et
+taux de conversion, comme pour un tunnel du builder. Les étapes que vous ajoutez
+vous-même (une étape qui n’est pas une question du tunnel) n’ont pas leur propre
+ligne dans ces statistiques : suivez-les avec votre outil d’analyse habituel si
+besoin.
+
+Conseils :
+
+- Appelez `question_view` quand une question s’affiche réellement à l’écran,
+  et `answer_select` quand le prospect choisit, pas avant.
+- N’envoyez pas d’événements « pour gonfler » : les statistiques servent au pro
+  pour piloter ses campagnes, et un suivi faussé lui fait prendre de mauvaises
+  décisions.
+- Ouvrez une seule session par visiteur et par affichage de page (`open()` une
+  fois), pas à chaque rendu de composant.
+
 ### Erreurs
 
 Chaque erreur du kit est une `ScaleAIsyError` avec un message en français
 affichable tel quel, un `status` et parfois `retryAfter` (secondes). Gardez les
 réponses du prospect en mémoire pour qu’il puisse renvoyer sans tout refaire.
+
+### Écrans de fin et agenda
+
+`submit()` renvoie `qualified` : `true` si le prospect est retenu, `false` s’il
+est « non retenu » (une réponse disqualifiante). Affichez l’écran adapté :
+
+- **Retenu** : remerciement, puis bouton vers l’agenda, redirection ou contenu
+  de votre choix. Envoyez `cta_click` quand le prospect clique sur cet appel à
+  l’action.
+- **Non retenu** : un message bienveillant et une ressource utile.
+
+L’analyse détaillée (chaud, tiède, froid, synthèse de l’IA) arrive ensuite dans
+ScaleAIsy et dans les notifications du pro ; elle n’est pas renvoyée au
+formulaire, pour ne jamais exposer la grille de qualification aux prospects.
+
+### Données transmises automatiquement
+
+Avec chaque envoi, le kit transmet l’adresse de la page. Les paramètres de
+campagne qu’elle contient (`utm_source`, `utm_campaign`…) restent donc associés
+au lead : gardez-les dans l’URL de votre formulaire.
 
 ## 4. Tester
 
@@ -155,8 +214,13 @@ réponses du prospect en mémoire pour qu’il puisse renvoyer sans tout refaire
 
 ## 5. Avant la mise en ligne
 
-- [ ] Toutes les questions de `definition.questions` sont affichées, dans l’ordre.
+- [ ] Toutes les questions de `definition.questions` sont affichées (sauf les
+      facultatives que votre logique fait sauter).
 - [ ] Les questions `required` sont obligatoires dans votre formulaire.
+- [ ] Les statistiques sont envoyées (`question_view`, `answer_select`,
+      `contact_capture`, `completion_view`, `cta_click`).
+- [ ] Les écrans « retenu » et « non retenu » sont prévus.
+- [ ] Aucune clé secrète de service tiers n’est présente dans la page.
 - [ ] Prénom et e-mail sont demandés ; nom et téléphone si `contact` l’exige.
 - [ ] Chaque consentement de `definition.consents` est affiché avec son texte
       exact, et coché par le prospect lui-même.
@@ -165,6 +229,82 @@ réponses du prospect en mémoire pour qu’il puisse renvoyer sans tout refaire
 - [ ] La clé réelle n’est utilisée que sur vos sites autorisés.
 
 Un exemple complet se trouve dans [`exemple/`](exemple).
+
+## Aller plus loin : ce que votre formulaire peut faire
+
+Votre formulaire est un vrai code, sur votre site : il peut faire **tout ce que
+le web permet**, avant l’envoi à ScaleAIsy. Quelques idées :
+
+| Idée | Exemple |
+| --- | --- |
+| Appeler un autre service | Le prospect tape son activité ou son site : votre page interroge un service de recherche, une IA ou votre CRM et lui affiche un résultat personnalisé. |
+| Calculer et afficher | Estimation de prix, simulateur de gains, score maison, comparatif. |
+| Logique conditionnelle sur mesure | Questions affichées selon les réponses précédentes, parcours différents par profil. |
+| Étapes en plus | Vidéo, témoignages, choix d’un créneau, page de présentation entre deux questions. |
+| Expérience riche | Animations, glisser-déposer, cartes, illustrations, multilingue, thème clair et sombre. |
+| Votre framework | React, Vue, Svelte, Webflow, WordPress… Le kit n’a aucune dépendance. |
+| Tests A/B | Deux versions de votre formulaire branchées au même tunnel. |
+
+Trois règles pour que ces ajouts fonctionnent avec ScaleAIsy :
+
+1. **ScaleAIsy n’analyse que les réponses aux questions du tunnel.** Pour qu’une
+   information produite par votre page (un résultat de recherche, un calcul) soit
+   prise en compte par l’IA ou visible dans le lead, prévoyez une question du
+   tunnel pour la recevoir, par exemple une question écrite facultative, et
+   placez-y le texte avant `submit()`.
+2. **Aucune clé secrète dans la page.** Tout ce qui est dans le navigateur est
+   lisible par tous. Pour appeler un service payant ou privé (IA, CRM, base de
+   données), passez par votre propre serveur, qui détient la clé et filtre les
+   demandes. Seule la clé de tunnel ScaleAIsy peut être publique.
+3. **Ces ajouts sont sous votre responsabilité** : leur bon fonctionnement, leur
+   coût, et l’information des visiteurs si leurs données partent vers un autre
+   service (RGPD). Ne bloquez jamais l’envoi à ScaleAIsy si un service externe
+   est en panne : prévoyez un repli.
+
+## Bonnes pratiques de conception
+
+- **Une question par écran** sur mobile, avec une barre de progression.
+- **Commencez par une question facile**, à choix ; gardez la question vocale pour
+  le moment où le ton et la motivation comptent.
+- **Réponse vocale** : un grand bouton micro, un compteur de temps, la limite
+  `maxSeconds`, la possibilité de recommencer et un repli écrit. Le micro n’est
+  disponible que sur une page en `https` (ou `localhost`).
+- **Un choix unique peut passer à la question suivante** dès qu’il est touché ;
+  un choix multiple garde un bouton « Continuer ».
+- **Retour en arrière** possible sans perdre les réponses déjà données.
+- **Accessibilité** : vrais boutons et champs, libellés lisibles, contraste
+  suffisant, navigation au clavier, animations réduites si le visiteur le demande.
+- **Chargement** : affichez un état d’attente pendant `open()` et pendant
+  `submit()`, et désactivez le bouton d’envoi pour éviter les doubles envois.
+- **Coordonnées** : prénom et e-mail toujours ; nom et téléphone selon
+  `definition.contact`. Dites pourquoi vous les demandez.
+
+## Problèmes fréquents
+
+| Ce que vous voyez | Cause probable | Que faire |
+| --- | --- | --- |
+| Le formulaire refuse de s’ouvrir depuis votre site | Le site n’est pas dans les sites autorisés (attention au `www` et au `https`) | Ajoutez l’adresse exacte dans **Diffusion › Sur mesure** |
+| La clé réelle est refusée alors que la clé de test marche | Le tunnel n’est pas publié | Publiez le tunnel dans ScaleAIsy |
+| « Ce tunnel n’accepte pas de réponses pour le moment » | Sur mesure suspendu, ou compte sans abonnement actif | Vérifiez l’onglet Sur mesure et la facturation du compte |
+| Envoi refusé pour une réponse manquante | Une question obligatoire du tunnel n’a pas reçu de réponse | Rendez-la obligatoire dans le formulaire, ou facultative dans le tunnel |
+| Les envois de test ne comptent pas dans les statistiques | Normal avec la clé de test | Passez à la clé réelle pour mesurer |
+| Le micro ne s’active pas | Page en `http`, navigateur intégré d’une app, ou accès refusé | Proposez la réponse écrite et envoyez `mic_denied` |
+| Trop de requêtes | Limite de protection atteinte | Attendez `retryAfter` secondes puis réessayez |
+
+## Questions fréquentes
+
+- **Je modifie une question dans ScaleAIsy : faut-il recoder ?** Le formulaire lit
+  la définition à chaque ouverture : un texte modifié s’affiche tout seul après
+  publication. Une nouvelle question ou un nouveau type demande de vérifier que
+  votre affichage la gère.
+- **Plusieurs sites ou plusieurs pages ?** Oui : ajoutez chaque site autorisé
+  (jusqu’à dix) et utilisez la même clé sur toutes vos pages.
+- **Plusieurs formulaires pour un même tunnel ?** Oui, par exemple pour un test
+  A/B. Les réponses arrivent toutes dans le même tunnel.
+- **Une clé a été copiée sur un autre site ?** Elle n’y fonctionne pas. En cas de
+  doute, régénérez-la et mettez à jour votre page.
+- **Revenir au builder ?** Suspendez le sur mesure et diffusez le tunnel avec son
+  lien ou son intégration habituels.
 
 ## Votre responsabilité
 

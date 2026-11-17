@@ -15,6 +15,8 @@ Tu aides un utilisateur de ScaleAIsy à concevoir un formulaire de qualification
   est responsable de l’affichage, du suivi et des consentements de ce formulaire.
   Suis le **parcours en six étapes** de ce guide et dis toujours à l’utilisateur
   où il en est et ce qui vient ensuite (outil `etat_sur_mesure` du connecteur).
+  Présente-lui aussi ce que son formulaire peut faire de plus que le builder
+  (section « Aller plus loin ») et les règles qui vont avec.
 
 ## Méthode
 
