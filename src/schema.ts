@@ -2,6 +2,7 @@
 // arrivent depuis la plateforme à chaque version.
 import { z } from 'zod'
 import { findDesignPreset } from './catalog.ts'
+import { designReadabilityIssues, withPaletteOverrides } from './design.ts'
 
 /**
  * Format public de description d’un formulaire ScaleAIsy (version 1).
@@ -172,8 +173,16 @@ export const formSpecSchema = z.strictObject({
     disqualified: ending.omit({ calendarUrl: true }).optional(),
   }).default({}),
 }).superRefine((spec, ctx) => {
-  if (spec.design.preset && !findDesignPreset(spec.design.preset)) {
+  const preset = findDesignPreset(spec.design.preset)
+  if (spec.design.preset && !preset) {
     ctx.addIssue({ code: 'custom', path: ['design', 'preset'], message: `Le thème « ${spec.design.preset} » n’existe pas dans la bibliothèque design.` })
+  }
+  if (preset) {
+    const { primaryColor, backgroundColor, textColor, fieldTextColor, buttonTextColor, darkMode } = spec.design
+    const adjusted = withPaletteOverrides(preset, { primaryColor, backgroundColor, textColor, fieldTextColor, buttonTextColor, darkMode })
+    for (const message of designReadabilityIssues(adjusted)) {
+      ctx.addIssue({ code: 'custom', path: ['design'], message: `Couleurs ajustées peu lisibles. ${message}` })
+    }
   }
 
   const keys = new Set<string>()
