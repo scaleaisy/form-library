@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Banc de test sur mesure ScaleAIsy</title>
+  <style>
+    body { margin: 0; padding: 24px 16px; font: 15px/1.5 system-ui, sans-serif; background: #f8fafc; color: #0f172a; }
+    main { max-width: 760px; margin: 0 auto; }
+    h1 { font-size: 1.4rem; }
+    section { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px; margin-bottom: 16px; }
+    input { width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #cbd5e1; border-radius: 10px; font: inherit; }
+    button { margin-top: 10px; padding: 10px 16px; border: 0; border-radius: 10px; background: #0f172a; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+    li { margin: 4px 0; }
+    .ok::before { content: '✓ '; color: #15803d; font-weight: 700; }
+    .ko::before { content: '✗ '; color: #b91c1c; font-weight: 700; }
+    .info::before { content: '• '; color: #64748b; }
+    code { background: #f1f5f9; padding: 1px 6px; border-radius: 6px; }
+    table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    td, th { text-align: left; padding: 6px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Banc de test du formulaire sur mesure</h1>
+  <section>
+    <label for="cle">Clé de test du tunnel</label>
+    <input id="cle" placeholder="sm_test_…" autocomplete="off">
+    <button id="lancer">Lancer les contrôles</button>
+  </section>
+  <section><h2>Votre code</h2><ul id="code"><li class="info">Analyse en cours…</li></ul></section>
+  <section><h2>Connexion au tunnel</h2><ul id="tunnel"><li class="info">Saisissez la clé de test.</li></ul><div id="questions"></div></section>
+  <section><h2>Envoi d’essai</h2><p>Envoie une réponse de test générée automatiquement. Elle apparaît dans ScaleAIsy, marquée « test ».</p>
+    <button id="essai" disabled>Envoyer une réponse d’essai</button><ul id="envoi"></ul></section>
+</main>
+<script src="https://scaleaisy.app/sur-mesure/v1.js"></script>
+<script>
+  const ligne = (liste, classe, texte) => { const li = document.createElement('li'); li.className = classe; li.textContent = texte; liste.append(li) }
+  const echapper = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
+  let tunnel = null
+
+  fetch('/__banc/analyse').then(r => r.json()).then(a => {
+    const liste = document.getElementById('code'); liste.innerHTML = ''
+    ligne(liste, 'info', `${a.fichiers} fichier(s) analysé(s).`)
+    ligne(liste, a.avecKit.length ? 'ok' : 'ko', a.avecKit.length ? `Kit chargé dans : ${a.avecKit.join(', ')}` : 'Le kit n’est chargé nulle part. Ajoutez <script src="https://scaleaisy.app/sur-mesure/v1.js">.')
+    ligne(liste, a.enregistrementVocal ? 'ok' : 'info', a.enregistrementVocal ? 'Enregistrement vocal présent.' : 'Pas d’enregistrement vocal : nécessaire si le tunnel a des questions vocales.')
+    ligne(liste, a.gereErreurs ? 'ok' : 'ko', a.gereErreurs ? 'Les erreurs d’envoi sont gérées.' : 'Gérez les erreurs de submit() (try/catch) pour permettre un nouvel essai.')
+    ligne(liste, a.evenements.length ? 'ok' : 'ko', a.evenements.length ? `Statistiques suivies : ${a.evenements.join(', ')}` : 'Aucun appel à track() : le tableau de bord n’aura que les vues et les réponses.')
+    if (a.clesReelles) ligne(liste, 'info', 'Une clé réelle est présente : elle ne fonctionne pas en local. Utilisez la clé de test ici.')
+    if (a.clesTest[0] && !document.getElementById('cle').value) document.getElementById('cle').value = a.clesTest[0]
+  })
+
+  document.getElementById('lancer').onclick = async () => {
+    const liste = document.getElementById('tunnel'); liste.innerHTML = ''
+    document.getElementById('questions').innerHTML = ''
+    document.getElementById('essai').disabled = true
+    if (!window.ScaleAIsy) return ligne(liste, 'ko', 'Le kit ne se charge pas : vérifiez votre connexion.')
+    ligne(liste, 'ok', `Kit ${ScaleAIsy.version} chargé.`)
+    try {
+      tunnel = await ScaleAIsy.open({ key: document.getElementById('cle').value.trim(), trackView: false })
+    } catch (e) {
+      return ligne(liste, 'ko', `Connexion refusée : ${e.message}`)
+    }
+    ligne(liste, tunnel.test ? 'ok' : 'ko', tunnel.test ? 'Clé de test reconnue.' : 'Cette clé est la clé réelle : utilisez la clé de test sur ce banc.')
+    const d = tunnel.definition
+    ligne(liste, 'info', `Tunnel « ${d.name} », ${d.questions.length} question(s), langue ${d.language}.`)
+    ligne(liste, 'info', `Contact : prénom et e-mail${d.contact.lastNameRequired ? ', nom' : ''}${d.contact.phoneRequired ? ', téléphone' : ''} obligatoires.`)
+    d.consents.forEach(k => ligne(liste, 'info', `Consentement ${k.required ? 'obligatoire' : 'facultatif'} à afficher tel quel : « ${k.text} »`))
+    document.getElementById('questions').innerHTML = `<table><tr><th>Question</th><th>Type</th><th>Valeur attendue</th></tr>${d.questions.map(q => `<tr><td>${echapper(q.label)}${q.required ? ' *' : ''}<br><code>${q.id}</code></td><td>${q.type}</td><td>${
+      q.type === 'choice' ? (q.multiple ? 'tableau d’id parmi ' : 'un id parmi ') + q.options.map(o => `<code>${o.id}</code> ${echapper(o.label)}`).join(', ')
+      : q.type === 'scale' ? 'nombre' : q.type === 'voice' ? `audio (${q.maxSeconds} s max) ou texte` : 'texte'}</td></tr>`).join('')}</table>`
+    document.getElementById('essai').disabled = !tunnel.test
+  }
+
+  document.getElementById('essai').onclick = async () => {
+    const liste = document.getElementById('envoi'); liste.innerHTML = ''
+    const answers = {}
+    for (const q of tunnel.definition.questions) {
+      if (q.type === 'choice') answers[q.id] = q.multiple ? [q.options[0].id] : q.options[0].id
+      else if (q.type === 'scale') answers[q.id] = Number(q.options[0]?.min ?? 0)
+      else answers[q.id] = 'Réponse d’essai envoyée par le banc de test.'
+    }
+    const consents = Object.fromEntries(tunnel.definition.consents.map(k => [k.kind, true]))
+    try {
+      const r = await tunnel.submit({ contact: { firstName: 'Essai', lastName: 'Banc', email: 'essai.banc@example.com', phone: '+33600000000' }, consents, answers })
+      ligne(liste, 'ok', `Réponse de test reçue (${r.qualified ? 'retenue' : 'non retenue'}). Retrouvez-la dans ScaleAIsy.`)
+    } catch (e) {
+      ligne(liste, 'ko', `Envoi refusé : ${e.message}`)
+    }
+  }
+</script>
+</body>
+</html>

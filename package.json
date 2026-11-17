@@ -2,7 +2,7 @@
   "name": "scaleaisy-form-library",
   "version": "1.0.0",
   "private": true,
-  "description": "Format, méthode et bibliothèque design pour concevoir des formulaires ScaleAIsy avec un agent IA.",
+  "description": "Format, méthode et kit sur mesure pour concevoir des formulaires ScaleAIsy avec un agent IA.",
   "license": "MIT",
   "type": "module",
   "engines": {
@@ -11,7 +11,8 @@
   "scripts": {
     "valider": "node bin/valider.ts",
     "generer": "node scripts/generer.ts",
-    "verifier": "node scripts/verifier.ts"
+    "verifier": "node scripts/verifier.ts",
+    "banc": "node scripts/banc.ts"
   },
   "dependencies": {
     "zod": "4.6.7"

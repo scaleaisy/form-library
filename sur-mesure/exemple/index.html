@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exemple de formulaire sur mesure ScaleAIsy</title>
+  <style>
+    :root { --fond: #0f172a; --carte: #111c33; --texte: #f8fafc; --doux: #94a3b8; --accent: #f97316; --erreur: #fca5a5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 16px;
+      font: 16px/1.5 system-ui, sans-serif; background: radial-gradient(circle at 20% 0%, #1e293b, var(--fond)); color: var(--texte); }
+    main { width: 100%; max-width: 560px; background: var(--carte); border: 1px solid #1e293b; border-radius: 20px; padding: 28px; }
+    .progression { height: 4px; background: #1e293b; border-radius: 4px; margin-bottom: 24px; }
+    .progression span { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 4px; transition: width .3s; }
+    h1 { font-size: 1.4rem; margin: 0 0 8px; }
+    p.aide { color: var(--doux); margin: 0 0 20px; }
+    label.choix { display: flex; gap: 10px; align-items: center; padding: 12px 14px; border: 1px solid #334155; border-radius: 12px; margin-bottom: 8px; cursor: pointer; }
+    label.choix:has(input:checked) { border-color: var(--accent); background: #1c2540; }
+    input[type=text], input[type=email], input[type=tel], textarea { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #334155; background: #0b1324; color: var(--texte); font: inherit; margin-bottom: 12px; }
+    input[type=range] { width: 100%; accent-color: var(--accent); }
+    button { font: inherit; font-weight: 600; padding: 12px 20px; border-radius: 12px; border: 0; cursor: pointer; }
+    .principal { background: var(--accent); color: #111827; }
+    .secondaire { background: #1e293b; color: var(--texte); }
+    .actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+    .erreur { color: var(--erreur); min-height: 1.5em; margin-top: 12px; }
+    .micro { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .test { display: inline-block; font-size: .8rem; color: #fde68a; border: 1px solid #fde68a; border-radius: 99px; padding: 2px 10px; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="progression" aria-hidden="true"><span id="barre"></span></div>
+    <div id="ecran" aria-live="polite">Chargement…</div>
+    <p class="erreur" id="erreur" role="alert"></p>
+  </main>
+
+  <script src="https://scaleaisy.app/sur-mesure/v1.js"></script>
+  <script>
+    // Clé du tunnel : clé de test en local, clé réelle sur votre site autorisé.
+    const CLE = new URLSearchParams(location.search).get('cle') || 'sm_test_REMPLACEZ_PAR_VOTRE_CLE_DE_TEST'
+
+    const ecran = document.getElementById('ecran')
+    const erreur = document.getElementById('erreur')
+    const barre = document.getElementById('barre')
+    const reponses = {}
+    const contact = { firstName: '', lastName: '', email: '', phone: '' }
+    const consentements = {}
+    let tunnel, etapes = [], index = 0, enregistrement = null
+
+    const echapper = texte => String(texte).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
+
+    async function demarrer() {
+      try {
+        tunnel = await ScaleAIsy.open({ key: CLE })
+      } catch (e) {
+        ecran.textContent = ''
+        erreur.textContent = e.message
+        return
+      }
+      etapes = [...tunnel.definition.questions.map(q => ({ type: 'question', question: q })), { type: 'contact' }]
+      afficher()
+    }
+
+    function afficher() {
+      erreur.textContent = ''
+      barre.style.width = `${Math.round((index / etapes.length) * 100)}%`
+      const etape = etapes[index]
+      const badge = tunnel.test ? '<span class="test">Mode test</span>' : ''
+      if (etape.type === 'contact') return afficherContact(badge)
+      const q = etape.question
+      tunnel.track('question_view', { questionId: q.id })
+      let champ = ''
+      if (q.type === 'choice') {
+        const type = q.multiple ? 'checkbox' : 'radio'
+        champ = q.options.map(o => `<label class="choix"><input type="${type}" name="r" value="${echapper(o.id)}"> ${echapper(o.label)}</label>`).join('')
+      } else if (q.type === 'scale') {
+        const max = Math.max(10, ...q.options.map(o => Number(o.max) || 0))
+        champ = `<input type="range" min="0" max="${max}" value="${reponses[q.id] ?? 0}" id="curseur"><p>Valeur : <strong id="valeur">${reponses[q.id] ?? 0}</strong></p>`
+      } else if (q.type === 'voice') {
+        champ = `<div class="micro"><button type="button" class="secondaire" id="micro">${reponses[q.id]?.blob ? 'Réenregistrer' : 'Répondre à l’oral'}</button><span id="etat">${reponses[q.id]?.blob ? 'Réponse enregistrée.' : `${q.maxSeconds} secondes au plus.`}</span></div>
+          <p class="aide">Vous préférez écrire ?</p><textarea id="texte" rows="4">${typeof reponses[q.id] === 'string' ? echapper(reponses[q.id]) : ''}</textarea>`
+      } else {
+        champ = `<textarea id="texte" rows="4">${echapper(reponses[q.id] ?? '')}</textarea>`
+      }
+      ecran.innerHTML = `${badge}<h1>${echapper(q.label)}</h1>${q.help ? `<p class="aide">${echapper(q.help)}</p>` : '<p class="aide"></p>'}${champ}${boutons()}`
+      brancher(q)
+    }
+
+    function boutons(dernier = false) {
+      return `<div class="actions"><button type="button" class="secondaire" id="retour" ${index === 0 ? 'hidden' : ''}>Retour</button>
+        <button type="button" class="principal" id="suivant">${dernier ? 'Envoyer' : 'Continuer'}</button></div>`
+    }
+
+    function brancher(q) {
+      document.getElementById('retour').onclick = () => { index--; afficher() }
+      const curseur = document.getElementById('curseur')
+      if (curseur) curseur.oninput = () => { document.getElementById('valeur').textContent = curseur.value }
+      const micro = document.getElementById('micro')
+      if (micro) micro.onclick = () => basculerMicro(q, micro)
+      document.getElementById('suivant').onclick = () => {
+        if (!lire(q)) return
+        index++
+        afficher()
+      }
+    }
+
+    async function basculerMicro(q, bouton) {
+      const etat = document.getElementById('etat')
+      try {
+        if (!enregistrement) {
+          enregistrement = await ScaleAIsy.record()
+          bouton.textContent = 'Terminer'
+          etat.textContent = 'Enregistrement en cours…'
+          setTimeout(() => { if (enregistrement) bouton.click() }, q.maxSeconds * 1000)
+        } else {
+          reponses[q.id] = await enregistrement.stop()
+          enregistrement = null
+          bouton.textContent = 'Réenregistrer'
+          etat.textContent = 'Réponse enregistrée.'
+        }
+      } catch (e) {
+        enregistrement = null
+        tunnel.track('mic_denied', { questionId: q.id })
+        etat.textContent = 'Micro indisponible : répondez par écrit.'
+      }
+    }
+
+    function lire(q) {
+      let valeur
+      if (q.type === 'choice') {
+        const choisis = [...ecran.querySelectorAll('input[name=r]:checked')].map(i => i.value)
+        valeur = q.multiple ? choisis : choisis[0]
+        if (choisis.length) tunnel.track('answer_select', { questionId: q.id })
+      } else if (q.type === 'scale') {
+        valeur = Number(document.getElementById('curseur').value)
+      } else {
+        const texte = document.getElementById('texte').value.trim()
+        valeur = q.type === 'voice' && reponses[q.id]?.blob && !texte ? reponses[q.id] : texte
+      }
+      const vide = valeur === undefined || valeur === '' || (Array.isArray(valeur) && !valeur.length)
+      if (q.required && vide) { erreur.textContent = 'Merci de répondre pour continuer.'; return false }
+      reponses[q.id] = vide ? undefined : valeur
+      return true
+    }
+
+    function afficherContact(badge) {
+      const c = tunnel.definition.contact
+      const consents = tunnel.definition.consents.map(k => `<label class="choix"><input type="checkbox" data-consent="${k.kind}" ${consentements[k.kind] ? 'checked' : ''}> ${echapper(k.text)}${k.required ? ' *' : ''}</label>`).join('')
+      ecran.innerHTML = `${badge}<h1>Où vous envoyer la suite ?</h1><p class="aide">Vos coordonnées restent confidentielles.</p>
+        <input type="text" id="prenom" placeholder="Prénom *" autocomplete="given-name" value="${echapper(contact.firstName)}">
+        <input type="text" id="nom" placeholder="Nom${c.lastNameRequired ? ' *' : ''}" autocomplete="family-name" value="${echapper(contact.lastName)}">
+        <input type="email" id="email" placeholder="E-mail *" autocomplete="email" value="${echapper(contact.email)}">
+        <input type="tel" id="tel" placeholder="Téléphone${c.phoneRequired ? ' *' : ''}" autocomplete="tel" value="${echapper(contact.phone)}">
+        ${consents}${boutons(true)}`
+      document.getElementById('retour').onclick = () => { index--; afficher() }
+      document.getElementById('suivant').onclick = envoyer
+    }
+
+    async function envoyer() {
+      Object.assign(contact, {
+        firstName: document.getElementById('prenom').value.trim(),
+        lastName: document.getElementById('nom').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('tel').value.trim(),
+      })
+      ecran.querySelectorAll('[data-consent]').forEach(box => { consentements[box.dataset.consent] = box.checked })
+      const c = tunnel.definition.contact
+      if (!contact.firstName || !/^\S+@\S+\.\S+$/.test(contact.email) || (c.lastNameRequired && !contact.lastName) || (c.phoneRequired && !contact.phone)) {
+        erreur.textContent = 'Merci de compléter les champs marqués d’une étoile.'
+        return
+      }
+      if (tunnel.definition.consents.some(k => k.required && !consentements[k.kind])) {
+        erreur.textContent = 'Merci de cocher les consentements obligatoires.'
+        return
+      }
+      tunnel.track('contact_capture')
+      const bouton = document.getElementById('suivant')
+      bouton.disabled = true
+      bouton.textContent = 'Envoi…'
+      try {
+        const resultat = await tunnel.submit({ contact, consents: consentements, answers: reponses })
+        barre.style.width = '100%'
+        tunnel.track('completion_view')
+        ecran.innerHTML = resultat.qualified
+          ? '<h1>Merci, c’est envoyé !</h1><p class="aide">Nous revenons vers vous très vite.</p>'
+          : '<h1>Merci pour vos réponses</h1><p class="aide">Notre accompagnement ne semble pas adapté pour le moment. Nous vous avons envoyé une ressource utile.</p>'
+      } catch (e) {
+        bouton.disabled = false
+        bouton.textContent = 'Réessayer'
+        erreur.textContent = e.message
+      }
+    }
+
+    demarrer()
+  </script>
+</body>
+</html>

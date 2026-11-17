@@ -1,8 +1,8 @@
-## Nouveau thème
+Ce dépôt est maintenu par l’équipe ScaleAIsy et n’accepte pas de *pull request*
+externe. Pour une idée ou un problème, ouvrez plutôt une *issue*.
 
-- Identifiant :
-- Pour quel type d’activité :
-- Capture d’un formulaire avec ce thème :
+## Changement
+
+-
 
 - [ ] `npm run verifier` passe.
-- [ ] J’accepte que ce thème soit publié sous licence MIT et utilisé par ScaleAIsy.
