@@ -5,7 +5,7 @@ import { z } from 'zod'
 /**
  * Contrat d’un thème de la bibliothèque design.
  * Un thème est une simple palette : aucune feuille de style, aucun script,
- * aucun lien externe. C’est ce qui rend les contributions sûres.
+ * aucun lien externe. Ils restent sûrs par construction.
  */
 
 const HEX_COLOR = /^#[0-9a-fA-F]{6}$/

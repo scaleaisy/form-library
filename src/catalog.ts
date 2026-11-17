@@ -5,7 +5,7 @@
  *
  * Deux bibliothèques distinctes :
  * - fonctionnalités : fermée, maintenue par ScaleAIsy ;
- * - design : thèmes visuels, ouverte aux contributions validées.
+ * - design : thèmes de couleurs du builder, maintenus par ScaleAIsy.
  *
  * Recopié dans le dépôt public et servi aux agents : vocabulaire produit
  * uniquement, aucune information interne ni de sécurité.
@@ -92,7 +92,7 @@ export const FEATURE_CATALOG: FeatureGroup[] = [
   },
 ]
 
-/** Bibliothèque design. Les contributions validées viennent s’ajouter ici. */
+/** Bibliothèque design : thèmes de couleurs du builder. */
 export const DESIGN_LIBRARY: DesignPreset[] = [
   {
     id: 'clarte',

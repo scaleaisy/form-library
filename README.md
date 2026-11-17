@@ -5,8 +5,13 @@ formulaire ScaleAIsy complet et conforme : questions vocales ou écrites,
 qualification par l’IA, logique conditionnelle, fins « retenu » et « non retenu »,
 agenda et design.
 
-Votre agent décrit le formulaire dans un fichier JSON. ScaleAIsy le crée ensuite
-en **brouillon** dans votre compte : vous le relisez, puis vous le publiez.
+Deux niveaux au choix :
+
+- **Builder** : votre agent décrit le formulaire dans un fichier JSON. ScaleAIsy le
+  crée en **brouillon** dans votre compte, l’affiche et l’héberge.
+- **Sur mesure** : votre agent code le formulaire de vos rêves sur votre propre
+  site et le branche à un tunnel ScaleAIsy avec le kit JavaScript. Voir
+  [`sur-mesure/`](sur-mesure).
 
 ## Démarrer en 3 étapes
 
@@ -26,7 +31,8 @@ en **brouillon** dans votre compte : vous le relisez, puis vous le publiez.
 | [`CATALOGUE.md`](CATALOGUE.md) | Tout ce qu’un formulaire sait faire, et les thèmes disponibles. |
 | [`schema/formulaire.schema.json`](schema/formulaire.schema.json) | Le format, en JSON Schema. |
 | [`exemples/`](exemples) | Des formulaires complets et valides. |
-| [`designs/`](designs) | La bibliothèque design : un fichier par thème. |
+| [`designs/`](designs) | Les thèmes de couleurs du builder. |
+| [`sur-mesure/`](sur-mesure) | Guide, exemple et banc de test des formulaires sur mesure. |
 | [`src/`](src) | Le format officiel et le validateur. |
 
 ## Valider un formulaire hors ligne
@@ -41,13 +47,19 @@ npm run valider -- mon-formulaire.json
 Le validateur applique exactement les mêmes règles que ScaleAIsy et explique
 chaque erreur.
 
-## Deux bibliothèques
+## Tester un formulaire sur mesure
 
-- **Fonctionnalités** : ce que le formulaire sait faire. Elle est maintenue par
-  ScaleAIsy. Une idée ? Ouvrez une *issue*.
-- **Design** : des thèmes visuels, ouverts aux contributions. Voir
-  [`CONTRIBUTING.md`](CONTRIBUTING.md). Un thème accepté devient disponible pour
-  tous les utilisateurs de la bibliothèque.
+```bash
+npm run banc -- chemin/vers/votre/formulaire
+```
+
+Le banc sert votre formulaire en local et vérifie son branchement au tunnel avec
+la clé de test. Détails dans [`sur-mesure/README.md`](sur-mesure/README.md).
+
+## Contributions
+
+Le dépôt est maintenu par ScaleAIsy. Une idée ou un problème ? Ouvrez une *issue*.
+Voir [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Licence
 

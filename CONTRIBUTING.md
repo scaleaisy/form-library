@@ -1,27 +1,11 @@
-# Contribuer à la bibliothèque design
+# Contribuer
 
-La bibliothèque **design** est ouverte à tous. La bibliothèque **fonctionnalités**
-est maintenue par ScaleAIsy : pour une idée de fonctionnalité, ouvrez une *issue*.
+Ce dépôt est maintenu par l’équipe ScaleAIsy. Les *pull requests* externes ne
+sont pas acceptées.
 
-## Proposer un thème
+- **Une idée de fonctionnalité** : ouvrez une *issue* « Idée de fonctionnalité ».
+- **Un problème avec le format ou le kit sur mesure** : ouvrez une *issue*
+  « Problème de format ».
 
-1. Ajoutez un fichier `designs/<identifiant>.json`, sur le modèle des thèmes
-   existants.
-2. Lancez `npm run verifier`. Il contrôle le format et la lisibilité : chaque
-   texte doit atteindre un contraste d’au moins 4,5 avec son fond (WCAG AA).
-3. Ouvrez une *pull request* avec une capture d’un formulaire utilisant le thème.
-
-Un thème est une palette. Il ne contient ni feuille de style, ni script, ni
-lien externe. Une contribution ne peut modifier que le dossier `designs/`, et
-ne peut pas supprimer un thème existant.
-
-## Relecture
-
-Chaque proposition est vérifiée automatiquement, puis relue par l’équipe
-ScaleAIsy. Un thème accepté est ajouté à la plateforme et devient disponible
-pour tous les utilisateurs de la bibliothèque.
-
-## Licence
-
-En proposant une contribution, vous acceptez qu’elle soit publiée sous la
-licence MIT de ce dépôt et utilisée par ScaleAIsy et ses utilisateurs.
+Pour un design libre, utilisez le niveau **sur mesure** : votre formulaire reste
+sur votre site, sans passer par ce dépôt. Voir [`sur-mesure/`](sur-mesure).

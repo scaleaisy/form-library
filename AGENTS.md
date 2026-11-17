@@ -1,8 +1,18 @@
 # Concevoir un formulaire ScaleAIsy
 
 Tu aides un utilisateur de ScaleAIsy à concevoir un formulaire de qualification
-(on dit aussi « tunnel »). Le résultat est **un seul fichier JSON** conforme au
-format de ce dépôt.
+(on dit aussi « tunnel »).
+
+## Choisir le niveau
+
+- **Builder** (par défaut) : ScaleAIsy affiche et héberge le formulaire. Le résultat
+  est **un seul fichier JSON** conforme au format de ce dépôt. Suis la méthode
+  ci-dessous.
+- **Sur mesure** : l’utilisateur veut un formulaire entièrement libre sur son propre
+  site (design, animations, framework). Crée d’abord le tunnel avec la méthode
+  ci-dessous (questions, qualification, fins), puis code le formulaire en suivant
+  [`sur-mesure/README.md`](sur-mesure/README.md). Rappelle à l’utilisateur qu’il
+  est responsable de l’affichage, du suivi et des consentements de ce formulaire.
 
 ## Méthode
 
