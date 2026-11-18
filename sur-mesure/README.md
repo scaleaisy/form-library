@@ -82,13 +82,15 @@ quelques règles :
   ouverture pour suivre les modifications du tunnel.
 
 Les clés ne sont pas secrètes : elles sont visibles dans le code de votre page.
-Chacune ne fonctionne que pour ce tunnel et depuis vos sites autorisés. Vous
-pouvez les régénérer à tout moment.
+Chacune ne sert qu’à envoyer des réponses à ce tunnel. Les navigateurs ne
+l’acceptent que sur vos sites autorisés : la clé limite l’usage depuis les pages
+d’autres sites, mais pas un programme hors navigateur qui la réutiliserait.
+Gardez-la pour votre site et régénérez-la à tout moment en cas de doute.
 
 | Clé | Fonctionne depuis | Ce qu’elle fait |
 | --- | --- | --- |
-| Test | vos sites autorisés et `http://localhost` | Envoie des réponses **de test** sur la version brouillon du tunnel : pas de statistiques, pas de visiteur compté. Limitée à quelques dizaines d’envois par jour. |
-| Réelle | vos sites autorisés | Envoie de vraies réponses. Le tunnel doit être **publié**. |
+| Test | navigateurs sur vos sites autorisés et `http://localhost` | Envoie des réponses **de test** sur la version brouillon du tunnel : pas de statistiques, pas de visiteur compté. Réservée à un usage de test raisonnable. |
+| Réelle | navigateurs sur vos sites autorisés | Envoie de vraies réponses. Le tunnel doit être **publié**. |
 
 ## 2. Charger le kit
 
@@ -301,8 +303,9 @@ Trois règles pour que ces ajouts fonctionnent avec ScaleAIsy :
   (jusqu’à dix) et utilisez la même clé sur toutes vos pages.
 - **Plusieurs formulaires pour un même tunnel ?** Oui, par exemple pour un test
   A/B. Les réponses arrivent toutes dans le même tunnel.
-- **Une clé a été copiée sur un autre site ?** Elle n’y fonctionne pas. En cas de
-  doute, régénérez-la et mettez à jour votre page.
+- **Une clé a été copiée sur un autre site ?** Les navigateurs la refusent sur
+  les pages d’un site non autorisé, mais un programme hors navigateur peut encore
+  s’en servir pour envoyer des réponses. Régénérez-la et mettez à jour votre page.
 - **Revenir au builder ?** Suspendez le sur mesure et diffusez le tunnel avec son
   lien ou son intégration habituels.
 
