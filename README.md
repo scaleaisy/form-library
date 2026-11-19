@@ -32,6 +32,7 @@ Deux niveaux au choix :
 | [`schema/formulaire.schema.json`](schema/formulaire.schema.json) | Le format, en JSON Schema. |
 | [`exemples/`](exemples) | Des formulaires complets et valides. |
 | [`designs/`](designs) | Les thèmes de couleurs du builder. |
+| [`compte/`](compte) | Gabarits pour configurer le compte (contexte de qualification, profils). |
 | [`sur-mesure/`](sur-mesure) | Guide, exemple et banc de test des formulaires sur mesure. |
 | [`src/`](src) | Le format officiel et le validateur. |
 
