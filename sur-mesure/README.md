@@ -123,6 +123,14 @@ const result = await tunnel.submit({
 result.qualified   // false si le prospect est « non retenu »
 ```
 
+### Afficher les textes en toute sécurité
+
+Les textes du tunnel (questions, aides, choix, consentements, fins) s’affichent
+toujours comme du **texte simple** : `textContent`, ou une fonction d’échappement
+avant `innerHTML` (voir `exemple/index.html`). Ne les insérez jamais tels quels en
+HTML : un texte modifié par erreur ne doit jamais pouvoir exécuter de code sur
+votre site.
+
 ### Types de questions et valeur attendue
 
 | `type` | À afficher | Valeur dans `answers` |
