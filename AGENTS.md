@@ -32,6 +32,13 @@ Tu aides un utilisateur de ScaleAIsy à concevoir un formulaire de qualification
    Lis d’abord l’outil `format_tunnel`, qui donne la version à jour du format.
    Le formulaire arrive en brouillon : donne à l’utilisateur le lien renvoyé.
 
+## Configurer le compte
+
+Pour régler le compte (identité, panier moyen, contexte de qualification, profils
+idéal, à nourrir et à écarter), suis [`compte/README.md`](compte/README.md) : il
+donne un gabarit et une longueur conseillée pour chaque champ. Des textes riches
+et précis donnent une qualification juste ; une phrase courte ne suffit pas.
+
 ## Bonnes pratiques
 
 - **Court d’abord** : 3 à 6 questions suffisent le plus souvent. Commence par une
