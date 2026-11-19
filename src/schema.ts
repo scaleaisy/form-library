@@ -36,8 +36,12 @@ const KEY_PATTERN = /^[a-z0-9][a-z0-9-]{0,39}$/
 const HEX_COLOR = /^#[0-9a-fA-F]{6}$/
 
 const key = (label: string) => z.string().regex(KEY_PATTERN, `${label} : utilisez 1 à 40 caractères parmi a-z, 0-9 et « - ».`)
-const text = (max: number) => z.string().trim().min(1, 'Ce texte ne peut pas être vide.').max(max, `Ce texte dépasse ${max} caractères.`)
-const optionalText = (max: number) => z.string().trim().max(max, `Ce texte dépasse ${max} caractères.`).optional()
+/** Balise HTML (« <b> », « </p> », « <img … », « <!-- ») : les textes s'affichent toujours tels quels, jamais en HTML. « < 5 » reste permis. */
+const MARKUP = /<\s*\/?\s*[a-zA-Z!?][^>]*>?/
+const NO_MARKUP = 'Écrivez du texte simple, sans balise HTML (« < » suivi d’une lettre).'
+const plain = (value: string) => !MARKUP.test(value)
+const text = (max: number) => z.string().trim().min(1, 'Ce texte ne peut pas être vide.').max(max, `Ce texte dépasse ${max} caractères.`).refine(plain, NO_MARKUP)
+const optionalText = (max: number) => z.string().trim().max(max, `Ce texte dépasse ${max} caractères.`).refine(plain, NO_MARKUP).optional()
 const color = z.string().regex(HEX_COLOR, 'Utilisez une couleur hexadécimale à 6 chiffres, par exemple #1A2B3C.')
 const httpsUrl = z.string().max(2_000).refine(value => {
   try {
