@@ -61,6 +61,7 @@ export const FEATURE_CATALOG: FeatureGroup[] = [
       { id: 'video-steps', title: 'Étapes vidéo', availability: 'builder', description: 'Vidéos intercalées dans le parcours, avec bouton d’action et fenêtre de relance à la pause.' },
       { id: 'diagnostic', title: 'Diagnostic chiffré', availability: 'builder', description: 'Un score calculé à partir des réponses et un récapitulatif affiché au prospect.' },
       { id: 'adaptive-vsl', title: 'VSL adaptative', availability: 'builder', description: 'Une vidéo de vente découpée en chapitres, jouée dans l’ordre qui correspond aux réponses du prospect.' },
+      { id: 'video-library', title: 'Vidéothèque', availability: 'builder', description: 'Les vidéos du compte, rangées en dossiers et choisies dans le builder. Une vidéo n’est hébergée par ScaleAIsy (lecture rapide, image d’aperçu à 3 secondes sur la première étape) que tant qu’un tunnel publié l’utilise.' },
     ],
   },
   {

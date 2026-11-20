@@ -65,6 +65,13 @@ et précis donnent une qualification juste ; une phrase courte ne suffit pas.
   Ajuste au besoin une couleur, en gardant un texte lisible.
 - **Formats vidéo** : `immersive` et `fullPage` exigent une vidéo, que
   l’utilisateur ajoute dans le builder. Sans vidéo, utilise `classic`.
+- **Vidéos et Vidéothèque** : le format ne porte pas de lien vidéo. L’utilisateur
+  choisit ses vidéos dans le builder (bouton « Vidéothèque » à côté de chaque
+  champ vidéo) ou les ajoute dans l’onglet Vidéothèque (lien MP4 direct en https,
+  nom, dossier). Pour réutiliser une vidéo, garde le même lien : ScaleAIsy n’en
+  héberge qu’une copie, quel que soit le nombre de tunnels. Elle n’est hébergée
+  (lecture rapide, image d’aperçu à 3 secondes sur la première étape) que tant
+  qu’un tunnel **publié** l’utilise : rappelle à l’utilisateur de publier le tunnel.
 
 ## Langue
 
