@@ -164,7 +164,15 @@ Choisis selon le check-up, et propose dans cet ordre ce qui manque :
    avec les données récoltées par ScaleAIsy et la présentation qu’elle préfère.
    Demande oui ou non ; si oui, demande ce qu’elle veut voir, sous quelle forme et à
    quelle fréquence, montre une maquette courte, puis construis-le (page HTML ou
-   petite application locale). Il se met à jour en te redemandant les données.
+   petite application locale).
+   Explique-lui clairement avant de commencer : ce tableau de bord **n’est pas
+   branché en continu** sur ScaleAIsy (l’interface ScaleAIsy, elle, se met à jour
+   seule). Chaque actualisation passe par toi et **consomme des requêtes** du quota
+   quotidien du compte pro. Le tableau de bord affiche donc toujours la date de la
+   dernière actualisation, les requêtes utilisées et restantes aujourd’hui (données
+   par `lister_mes_clients`), ce que coûte une actualisation, et un bouton
+   « Actualiser » qui copie la demande à te recoller. Regroupe tes lectures pour
+   qu’une actualisation coûte le moins possible.
    Voir le prompt « Mon propre tableau de bord » dans [`prompts.md`](prompts.md).
 
 Présente le plan ainsi, puis attends la réponse :

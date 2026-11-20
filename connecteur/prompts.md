@@ -93,18 +93,32 @@
 
 ### Mon propre tableau de bord
 
-L’interface ScaleAIsy est pensée pour la performance de vos comptes, mais rien ne
-vous y oblige : votre agent peut construire votre tableau de bord à vous, sur votre
-ordinateur, avec les données que ScaleAIsy récolte.
+L’interface ScaleAIsy est pensée pour la performance de vos comptes et se met à
+jour en continu. Rien ne vous y oblige pourtant : votre agent peut construire votre
+tableau de bord à vous, sur votre ordinateur, avec les données que ScaleAIsy récolte.
+
+**À savoir** : ce tableau de bord n’est pas branché en continu sur ScaleAIsy. Il se
+met à jour quand vous le demandez à votre agent, et chaque actualisation utilise des
+requêtes de votre quota quotidien. Le tableau de bord vous montre combien il vous en
+reste.
 
 > Construis-moi mon propre tableau de bord d’agence avec le connecteur ScaleAIsy.
 > Commence par me demander ce que je veux voir (indicateurs, comptes clients, période,
 > comparaisons), sous quelle forme (cartes, tableaux, graphiques, une page par client)
 > et à quelle fréquence je le consulte. Montre-moi une maquette courte à valider, puis
 > crée-le sur mon ordinateur (page HTML ou petite application locale) à partir de
-> lister_mes_clients, synthese_portefeuille, analyse_compte et kpi_tunnel. Explique-moi
-> enfin comment le mettre à jour.
+> lister_mes_clients, synthese_portefeuille, analyse_compte et kpi_tunnel, en
+> regroupant les lectures. Affiche toujours la date de la dernière actualisation, mes
+> requêtes utilisées et restantes aujourd’hui, ce que coûte une actualisation et
+> quelles données la consomment, et un bouton « Actualiser » qui copie la demande à te
+> recoller. Explique-moi enfin comment le mettre à jour.
 
 Idées de contenu : classement des comptes par urgence, visiteurs → contacts →
 rendez-vous → ventes par client, tunnels qui perdent le plus, leads chauds du jour,
 évolution sur 7, 28 et 90 jours.
+
+### Actualiser mon tableau de bord
+
+> Actualise mon tableau de bord ScaleAIsy : relis seulement les données qu’il
+> affiche, en regroupant les lectures, mets à jour la date d’actualisation et mes
+> requêtes restantes, puis dis-moi combien de requêtes cela a utilisé.
