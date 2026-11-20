@@ -37,7 +37,7 @@
 
 ### Affichage
 
-- **Format d’affichage** [spec] (`display.mode`) : Classique (formulaire intégrable dans une page) ou formats vidéo : intégré et pleine page. Les formats vidéo demandent au moins une vidéo, à ajouter dans le builder avant publication.
+- **Format d’affichage** [spec] (`display.mode`) : Standard (`classic`, formulaire intégrable dans une page) ou formats vidéo : Intégré (`immersive`) et Full Page (`fullPage`). Les formats vidéo demandent au moins une vidéo, à ajouter dans le builder avant publication.
 - **Taille** [spec] (`display.size`) : Petit, moyen ou grand.
 - **Design** [spec] (`design`) : Un thème de la bibliothèque design, éventuellement ajusté couleur par couleur.
 - **Logo et marque blanche** [builder] : Logo du compte et retrait de la mention ScaleAIsy selon le forfait.

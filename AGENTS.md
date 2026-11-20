@@ -59,8 +59,11 @@ et précis donnent une qualification juste ; une phrase courte ne suffit pas.
   proposer une ressource utile.
 - **Design** : choisis un thème de [`designs/`](designs) avec `design.preset`.
   Ajuste au besoin une couleur, en gardant un texte lisible.
-- **Formats vidéo** : `immersive` et `fullPage` exigent une vidéo, que
-  l’utilisateur ajoute dans le builder. Sans vidéo, utilise `classic`.
+- **Formats** : Standard (`classic`), Intégré (`immersive`) et Full Page
+  (`fullPage`). Intégré et Full Page sont des formats vidéo : ils exigent une
+  vidéo, que l’utilisateur ajoute dans le builder. Sans vidéo, utilise Standard.
+  Avec l’utilisateur, emploie toujours ces noms (jamais « immersif »,
+  « classique » ni « pleine page »).
 
 ## Langue
 

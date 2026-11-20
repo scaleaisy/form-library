@@ -75,7 +75,7 @@ export const FEATURE_CATALOG: FeatureGroup[] = [
     id: 'display',
     title: 'Affichage',
     features: [
-      { id: 'display-mode', title: 'Format d’affichage', availability: 'spec', specPath: 'display.mode', description: 'Classique (formulaire intégrable dans une page) ou formats vidéo : intégré et pleine page. Les formats vidéo demandent au moins une vidéo, à ajouter dans le builder avant publication.' },
+      { id: 'display-mode', title: 'Format d’affichage', availability: 'spec', specPath: 'display.mode', description: 'Standard (`classic`, formulaire intégrable dans une page) ou formats vidéo : Intégré (`immersive`) et Full Page (`fullPage`). Les formats vidéo demandent au moins une vidéo, à ajouter dans le builder avant publication.' },
       { id: 'display-size', title: 'Taille', availability: 'spec', specPath: 'display.size', description: 'Petit, moyen ou grand.' },
       { id: 'design', title: 'Design', availability: 'spec', specPath: 'design', description: 'Un thème de la bibliothèque design, éventuellement ajusté couleur par couleur.' },
       { id: 'branding', title: 'Logo et marque blanche', availability: 'builder', description: 'Logo du compte et retrait de la mention ScaleAIsy selon le forfait.' },
