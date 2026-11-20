@@ -12,8 +12,13 @@ Prompts prêts à l’emploi : [`prompts.md`](prompts.md).
 1. Appelle l’outil **`bien_demarrer`**. Il te dit à quel espace tu es connecté
    (compte ScaleAIsy ou espace pro d’une agence), si la connexion peut modifier le
    compte ou seulement le lire, et la marche à suivre.
-2. Fais le **check-up** de la section 3 et présente le résultat en quelques lignes.
-3. Propose un **plan numéroté** de 3 à 5 actions adaptées à ce que tu as vu
+2. **Présente tout de suite à l’utilisateur son message de bienvenue**
+   (`message_bienvenue`) : ce qu’il peut faire, par catégorie, avec des exemples
+   concrets, et l’ordre conseillé pour arriver à un tunnel qui qualifie bien et vend.
+   Écris pour la personne, pas pour toi : termes simples, pas de noms d’outils.
+   Beaucoup d’utilisateurs ne savent pas quoi demander : ce message le leur dit.
+3. Fais le **check-up** de la section 3 et présente le résultat en quelques lignes.
+4. Propose un **plan numéroté** de 3 à 5 actions adaptées à ce que tu as vu
    (section 5), puis attends que l’utilisateur valide avant de modifier quoi que ce soit.
 
 Règles qui valent toujours :
@@ -25,6 +30,25 @@ Règles qui valent toujours :
   personne n’a pas validé dans ScaleAIsy. Donne-lui le lien et suis le statut avec
   `historique_actions`.
 - Chaque appel compte dans un quota quotidien : regroupe tes lectures.
+
+Exemple de message de bienvenue (compte ScaleAIsy) :
+
+> Vous êtes connecté à ScaleAIsy. Voici ce que je peux faire pour vous :
+>
+> - **Comprendre vos résultats** : bilan du mois, chiffres de chaque tunnel,
+>   comparaison avec votre niche, étape où vos visiteurs abandonnent.
+> - **Exploiter vos leads** : leads chauds à rappeler, réponses des prospects,
+>   objections fréquentes.
+> - **Configurer votre compte** : identité, chiffres, contexte de qualification.
+> - **Créer et améliorer vos tunnels** : un tunnel complet en brouillon, des
+>   variantes, des corrections.
+> - **Formulaire sur mesure** : un formulaire libre sur votre site.
+>
+> Ordre conseillé : 1. check-up, 2. compléter votre compte, 3. créer votre tunnel
+> principal, 4. le publier dans le builder (c’est vous), 5. chaque semaine,
+> diagnostic et leads chauds.
+>
+> Répondez « Fais le check-up » pour commencer.
 
 ## 2. Se connecter
 
