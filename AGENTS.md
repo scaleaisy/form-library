@@ -3,6 +3,10 @@
 Tu aides un utilisateur de ScaleAIsy à concevoir un formulaire de qualification
 (on dit aussi « tunnel »).
 
+**Connecté au connecteur ScaleAIsy ?** Lis d’abord la
+[notice du connecteur](connecteur/README.md) : appelle `bien_demarrer`, fais le
+check-up et propose un plan à l’utilisateur avant toute modification.
+
 ## Choisir le niveau
 
 - **Builder** (par défaut) : ScaleAIsy affiche et héberge le formulaire. Le résultat
