@@ -13,6 +13,12 @@ Deux niveaux au choix :
   site et le branche à un tunnel ScaleAIsy avec le kit JavaScript. Voir
   [`sur-mesure/`](sur-mesure).
 
+## Agent connecté au connecteur ScaleAIsy ?
+
+Commencez par la **[notice du connecteur](connecteur/README.md)** : connexion,
+check-up, tout ce que l’agent peut faire et par quoi commencer. Les prompts prêts à
+l’emploi sont dans [`connecteur/prompts.md`](connecteur/prompts.md).
+
 ## Démarrer en 3 étapes
 
 1. **Connectez votre agent à ScaleAIsy** depuis votre espace :
@@ -27,6 +33,7 @@ Deux niveaux au choix :
 
 | Dossier | Contenu |
 | --- | --- |
+| [`connecteur/`](connecteur) | Notice du connecteur (connexion, check-up, outils) et prompts prêts à l’emploi. |
 | [`AGENTS.md`](AGENTS.md) | La méthode de conception, à lire par l’agent. |
 | [`CATALOGUE.md`](CATALOGUE.md) | Tout ce qu’un formulaire sait faire, et les thèmes disponibles. |
 | [`schema/formulaire.schema.json`](schema/formulaire.schema.json) | Le format, en JSON Schema. |
