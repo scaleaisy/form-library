@@ -29,6 +29,7 @@
 - **Étapes vidéo** [builder] : Vidéos intercalées dans le parcours, avec bouton d’action et fenêtre de relance à la pause.
 - **Diagnostic chiffré** [builder] : Un score calculé à partir des réponses et un récapitulatif affiché au prospect.
 - **VSL adaptative** [builder] : Une vidéo de vente découpée en chapitres, jouée dans l’ordre qui correspond aux réponses du prospect.
+- **Vidéothèque** [builder] : Les vidéos du compte, rangées en dossiers et choisies dans le builder. Une vidéo n’est hébergée par ScaleAIsy (lecture rapide, image d’aperçu à 3 secondes sur la première étape) que tant qu’un tunnel publié l’utilise.
 
 ### Contact et conformité
 

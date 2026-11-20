@@ -117,7 +117,7 @@ modifier, rappelle-lui comment activer les modifications (section 2).
 | `kpi_tunnel` | KPI détaillés d’un tunnel sur 7, 28 ou 90 jours. |
 | `parcours_tunnel` | Décrochage étape par étape et rétention des vidéos. |
 | `sources_tunnel` | Provenance des visites (campagnes, pages d’origine). |
-| `scripts_videos` | Texte de chaque vidéo d’un tunnel, minuté. |
+| `scripts_videos` | Texte de chaque vidéo d’un tunnel, minuté (les vidéos de la Vidéothèque sont transcrites même hors tunnel publié). |
 | `benchmark` | Points de friction comparés aux références de la niche. |
 | `analyse_compte` | Cockpit : bilan par étape commerciale, classement des tunnels, ROAS estimé. |
 | `lister_contacts` / `lire_reponse` | Leads, réponses transcrites, qualification par l’IA. |
