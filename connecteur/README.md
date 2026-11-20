@@ -159,6 +159,13 @@ Choisis selon le check-up, et propose dans cet ordre ce qui manque :
 4. **Des contacts récents** → synthèse des leads chauds et des objections fréquentes.
 5. **Espace pro** → classer les comptes clients par urgence, puis proposer une action
    par compte (ou un même tunnel à déployer sur plusieurs comptes créés par l’agence).
+6. **Espace pro, votre propre tableau de bord** → dès la connexion d’une agence,
+   propose-lui aussi de construire son propre tableau de bord sur son ordinateur,
+   avec les données récoltées par ScaleAIsy et la présentation qu’elle préfère.
+   Demande oui ou non ; si oui, demande ce qu’elle veut voir, sous quelle forme et à
+   quelle fréquence, montre une maquette courte, puis construis-le (page HTML ou
+   petite application locale). Il se met à jour en te redemandant les données.
+   Voir le prompt « Mon propre tableau de bord » dans [`prompts.md`](prompts.md).
 
 Présente le plan ainsi, puis attends la réponse :
 
