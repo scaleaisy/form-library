@@ -119,7 +119,7 @@ modifier, rappelle-lui comment activer les modifications (section 2).
 | `sources_tunnel` | Provenance des visites (campagnes, pages d’origine). |
 | `scripts_videos` | Texte de chaque vidéo d’un tunnel, minuté. |
 | `benchmark` | Points de friction comparés aux références de la niche. |
-| `analyse_compte` | Cockpit : bilan par étape commerciale, classement des tunnels, ROAS estimé. |
+| `analyse_compte` | Tableau de bord : bilan par étape commerciale, classement des tunnels, ROAS estimé. |
 | `lister_contacts` / `lire_reponse` | Leads, réponses transcrites, qualification par l’IA. |
 | `lire_tunnel` | Contenu d’un tunnel au format ScaleAIsy. |
 | `format_tunnel` | Tout ce que permet le builder : à lire avant de concevoir un tunnel. |
