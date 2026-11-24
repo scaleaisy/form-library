@@ -113,7 +113,7 @@ modifier, rappelle-lui comment activer les modifications (section 2).
 | --- | --- |
 | `compte` | Forfait, cycle en cours, visiteurs suivis. |
 | `options_compte` | Réglages du compte et valeurs possibles (marchés, niches). |
-| `lister_tunnels` | Tunnels et leurs KPI des 28 derniers jours. |
+| `lister_tunnels` | Tunnels, leur nom structuré (rôle · catégorie · stratégie · nom) et leurs KPI des 28 derniers jours. |
 | `kpi_tunnel` | KPI détaillés d’un tunnel sur 7, 28 ou 90 jours. |
 | `parcours_tunnel` | Décrochage étape par étape et rétention des vidéos. |
 | `sources_tunnel` | Provenance des visites (campagnes, pages d’origine). |
