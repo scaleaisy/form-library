@@ -75,7 +75,7 @@ export const FEATURE_CATALOG: FeatureGroup[] = [
     id: 'display',
     title: 'Affichage',
     features: [
-      { id: 'display-mode', title: 'Format d’affichage', availability: 'spec', specPath: 'display.mode', description: 'Classique (formulaire intégrable dans une page) ou formats vidéo : intégré et pleine page. Les formats vidéo demandent au moins une vidéo, à ajouter dans le builder avant publication.' },
+      { id: 'display-mode', title: 'Format d’affichage', availability: 'spec', specPath: 'display.mode', description: 'Standard (formulaire intégrable dans une page) ou formats vidéo : Intégré et Full Page. Les formats vidéo demandent au moins une vidéo, à ajouter dans le builder avant publication.' },
       { id: 'display-size', title: 'Taille', availability: 'spec', specPath: 'display.size', description: 'Petit, moyen ou grand.' },
       { id: 'design', title: 'Design', availability: 'spec', specPath: 'design', description: 'Un thème de la bibliothèque design, éventuellement ajusté couleur par couleur.' },
       { id: 'branding', title: 'Logo et marque blanche', availability: 'builder', description: 'Logo du compte et retrait de la mention ScaleAIsy selon le forfait.' },
@@ -88,6 +88,7 @@ export const FEATURE_CATALOG: FeatureGroup[] = [
       { id: 'notifications', title: 'Notification des leads', availability: 'builder', description: 'Chaque lead analysé est envoyé par e-mail au créateur.' },
       { id: 'crm-export', title: 'Envoi vers un outil externe', availability: 'builder', description: 'Les résultats peuvent être transmis automatiquement à votre CRM.' },
       { id: 'ads-tracking', title: 'Suivi publicitaire', availability: 'builder', description: 'Mesure des conversions pour vos campagnes publicitaires.' },
+      { id: 'tunnel-pilot', title: 'Pilotage du tunnel', availability: 'builder', description: 'Bouton Pilotage de la carte du tunnel : nom structuré (rôle · catégorie · stratégie · nom libre), réglages d’acquisition et parcours Scaling en cinq étapes. Rôle : principal, secondaire ou test. Stratégie : acquisition (nouveaux contacts), ventes (agenda et appel de vente) ou analyse.' },
     ],
   },
 ]

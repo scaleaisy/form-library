@@ -37,7 +37,7 @@
 
 ### Affichage
 
-- **Format d’affichage** [spec] (`display.mode`) : Classique (formulaire intégrable dans une page) ou formats vidéo : intégré et pleine page. Les formats vidéo demandent au moins une vidéo, à ajouter dans le builder avant publication.
+- **Format d’affichage** [spec] (`display.mode`) : Standard (formulaire intégrable dans une page) ou formats vidéo : Intégré et Full Page. Les formats vidéo demandent au moins une vidéo, à ajouter dans le builder avant publication.
 - **Taille** [spec] (`display.size`) : Petit, moyen ou grand.
 - **Design** [spec] (`design`) : Un thème de la bibliothèque design, éventuellement ajusté couleur par couleur.
 - **Logo et marque blanche** [builder] : Logo du compte et retrait de la mention ScaleAIsy selon le forfait.
@@ -47,6 +47,7 @@
 - **Notification des leads** [builder] : Chaque lead analysé est envoyé par e-mail au créateur.
 - **Envoi vers un outil externe** [builder] : Les résultats peuvent être transmis automatiquement à votre CRM.
 - **Suivi publicitaire** [builder] : Mesure des conversions pour vos campagnes publicitaires.
+- **Pilotage du tunnel** [builder] : Bouton Pilotage de la carte du tunnel : nom structuré (rôle · catégorie · stratégie · nom libre), réglages d’acquisition et parcours Scaling en cinq étapes. Rôle : principal, secondaire ou test. Stratégie : acquisition (nouveaux contacts), ventes (agenda et appel de vente) ou analyse.
 
 ## Bibliothèque design
 
