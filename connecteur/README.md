@@ -72,8 +72,10 @@ Seuls Claude, ChatGPT et les agents qui tournent sur l’ordinateur de l’utili
   modifications ». Sinon, activez-les plus tard dans *Paramètres › Connecteurs IA*.
 - **Espace pro (agence)** : seul le propriétaire de l’agence peut connecter un
   assistant. Pour les modifications, ouvrez *Espace pro › Connecteurs IA*, acceptez
-  les conditions et cliquez « Activer les modifications ». Elles portent sur les
-  comptes clients créés par l’agence ; les comptes accompagnés restent en lecture.
+  les conditions et cliquez « Activer les modifications ». Elles portent sur tous
+  les comptes clients de l’agence (créés, rattachés ou accompagnés) : réglages,
+  tunnels, mise en ligne et sur mesure. La suppression d’un compte reste réservée à
+  son titulaire.
 - Une **nouvelle connexion** (ou un autre assistant) repart en lecture seule :
   réactivez les modifications, puis **ouvrez une nouvelle conversation** pour que
   l’agent voie ses nouveaux outils.
@@ -136,14 +138,17 @@ outil prend alors `compte_client`.
 | `configurer_compte` | Identité, chiffres, contexte de qualification. | Aperçu + lien |
 | `creer_tunnel` | Crée un tunnel en brouillon. | Directe |
 | `modifier_tunnel` | Modifie un brouillon. Tunnel en ligne : seulement sur demande, son brouillon. | Directe (brouillon), aperçu + lien (en ligne) |
+| `publier_tunnel` | Espace pro : met en ligne le brouillon d’un tunnel, seulement sur demande. | Aperçu + lien |
 | `archiver_tunnels` | Range des brouillons dans « Archivé ». | Directe |
 | `supprimer_tunnels` | Supprime définitivement des tunnels archivés. | Aperçu + lien |
 | `activer_sur_mesure` / `modifier_sur_mesure` | Sites autorisés, clés, suspension du sur mesure. | Aperçu + lien si un accès s’ouvre ou se coupe |
 | `annuler_action` | Annule une modification de moins de 24 heures. | Directe |
 
-Ce que l’agent ne fait jamais : publier un tunnel, archiver ou supprimer un tunnel en
-ligne. La publication se fait dans le builder par l’utilisateur. Toute modification
-s’annule pendant 24 heures (sauf une suppression définitive) dans *Connecteurs IA*.
+Ce que l’agent ne fait jamais : archiver ou supprimer un tunnel en ligne. Sur son
+propre compte, l’utilisateur publie dans le builder ; dans l’espace pro, l’agent peut
+préparer une mise en ligne que le propriétaire de l’agence valide. Toute modification
+s’annule pendant 24 heures (sauf une mise en ligne et une suppression définitive)
+dans *Connecteurs IA*.
 
 ## 5. Par quoi commencer
 
